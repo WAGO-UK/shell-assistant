@@ -1,0 +1,8 @@
+<id>docker</id>
+<parent>wsa</parent>
+<title>Docker</title>
+<menu>
+    <option type='endpoint' command='./src/docker_installs.sh docker'>Install Docker</option>
+    <option type='endpoint' command=''>Install Basic Stack (Node-RED, Grafana, InfluxDB)</option>
+    <option type='submenu' id='docker_individual'>Individual install..</option>
+</menu>

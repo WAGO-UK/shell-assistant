@@ -1,0 +1,7 @@
+<id>apps</id>
+<parent>wsa</parent>
+<title>Apps</title>
+<menu>
+    <option type='endpoint' command=''>Install TCP Dump</option>
+    <option type='endpoint' command=''>Individual install..</option>
+</menu>

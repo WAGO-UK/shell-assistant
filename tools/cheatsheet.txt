@@ -1,0 +1,84 @@
+
+
+test
+Arrays:
+
+- reference item inside array:      ${ArrayName[x]}, example: ${options[2]}
+- length of an array:               ${#ArrayName[@]}, example: ${#options[@]}
+- pass array to function            functionName "${ArrayName[@]}, example: checkWidth "${options[@]}"
+- read array argument in function   var=("$@"), example: options=("$@")                                 NOTE: Works when array is the only argument; for others, use next example
+- read array argument in function   var=("${@:x}"), example: arguments: (var, var2, array), arr=("${@:3}")
+
+
+Piping:
+source: https://ryanstutorials.net/linuxtutorial/piping.php
+
+- 
+
+
+If statement:
+source: https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php
+
+Operator	            Description
+! EXPRESSION	        The EXPRESSION is false.
+-n STRING	            The length of STRING is greater than zero.
+-z STRING	            The lengh of STRING is zero (ie it is empty).
+STRING1 = STRING2	    STRING1 is equal to STRING2
+STRING1 != STRING2	    STRING1 is not equal to STRING2
+INTEGER1 -eq INTEGER2	INTEGER1 is numerically equal to INTEGER2
+INTEGER1 -gt INTEGER2	INTEGER1 is numerically greater than INTEGER2
+INTEGER1 -lt INTEGER2	INTEGER1 is numerically less than INTEGER2
+-d FILE	                FILE exists and is a directory.
+-e FILE	                FILE exists.
+-r FILE	                FILE exists and the read permission is granted.
+-s FILE	                FILE exists and it's size is greater than zero (ie. it is not empty).
+-w FILE	                FILE exists and the write permission is granted.
+-x FILE	                FILE exists and the execute permission is granted.
+
+- check if string contains substring:
+                        STR="GNU/Linux is an operating system"
+                        SUB="Linux"
+                        if [[ "$STR" == *"$SUB"* ]]; then ...
+
+String:
+
+- inputing arguments into string:       example: "Current index %d with value %s\n" $j "${mahabharata[$j]}"
+
+Functions:
+
+- save output of a function in variable,    example: VAR=$(example)
+
+Files:
+
+- check if file exists         test EXPRESSION / [EXPRESSION] / [[EXPRESSION]]
+    - FILE=file.conf    if test -f "$FILE"; then ... fi
+    - FILE=file.conf    if [ -f "$FILE" ]; then
+- check if directory exists
+    - FILE=/etc/docker  if [ -d "$FILE" ]; then ... fi
+
+
+Colours:
+source: https://dev.to/ifenna__/adding-colors-to-bash-scripts-48g4
+
+Temporary file:
+
+# Create a temporary file and make sure it goes away when we're dome
+tmp_file=$(tempfile 2>/dev/null) || tmp_file=/tmp/test$$
+trap "rm -f $tmp_file" 0 1 2 5 15
+
+# Safe way!!!
+https://ss64.com/bash/mktemp.html
+other use:
+trap 'rm -rf -- "tmp"' EXIT
+
+
+Running command saved in a string variable:
+source: https://unix.stackexchange.com/questions/356534/how-to-run-string-with-values-as-a-command-in-bash
+
+eval "$command"
+
+
+Replace entire line in a file:
+source: https://stackoverflow.com/questions/11145270/how-to-replace-an-entire-line-in-a-text-file-by-line-number
+
+sed -i 'Ns/.*/replacement-line/' file.txt , where N is a line number

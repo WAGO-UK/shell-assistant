@@ -1,0 +1,8 @@
+<id>device</id>
+<parent></parent>
+<title>Choose your WAGO Device</title>
+<menu>
+    <option type='device' id='wsa'>PFC200</option>
+    <option type='device' id='wsa'>CC100</option>
+    <option type='device' id='wsa'>TP600</option>
+</menu>
