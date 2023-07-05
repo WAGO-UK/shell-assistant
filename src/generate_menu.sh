@@ -122,8 +122,8 @@ function generateBackButton() {
 }
 
 function generateMenuFooter() {
-    generateText "footer" "Move: ARROW UP/DOWN      |    Select: ENTER"
-    generateText "footer" "Back: ESCAPE             |    Quit:   Q"  
+    generateText "footer" "Move: ARROW UP/DOWN      |    Select: ENTER / ARROW RIGHT"
+    generateText "footer" "Back: ARROW LEFT         |    Quit:   Q"  
 }
 
 ## generateMenu( )

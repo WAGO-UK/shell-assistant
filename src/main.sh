@@ -123,11 +123,13 @@ while [ ans != "" ]; do
     case $ans in
         'q') 
                 echo QUITTING ; exit ;;
-        '[A') 
+        '[A')   # UP arrow key
                 [[ $currOpt -gt 0 ]] && ((currOpt--)) || currOpt=$optMax ;;
-        '[B') 
+        '[B')   # DOWN arrow key 
                 [[ $currOpt -lt $optMax ]] && ((currOpt++)) ;;
-        '')     
+        '[D')   # LEFT arrow key
+                updateCurrentMenu "${menu[parent]}" || echo "cannot update the menu." ;;
+        ''|'[C') # Enter or RIGHT arrow key    
                 updateMenu
                 currOpt=0 ;;
         *)      return ;;
