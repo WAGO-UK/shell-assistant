@@ -38,7 +38,7 @@ function checkForZip() {
     [ -f "$zipFile" ] || return 1
     [ ! "$DIR" = "$(pwd)" ] && { cp "$zipFile" "$DIR" ; cd "$DIR" ; }
         unzip "$zipFile" || { echo "zip file could not be found." ; exit ; }
-    rm "$zipFile"
+    #rm "$zipFile"
 }
 
 function promptUserToDownload() {
@@ -70,9 +70,19 @@ function internetErrorMsgShow() {
 }
 
 function setFilePermissions() {
-    cd $DIR/$sa
-    chmod 777 src       # set execute permissions
-    chmod 777 .build    # set execute permissions
+    #cd $DIR/$a
+    #chmod 777 src       # set execute permissions - not working 
+    #chmod 777 .build    # set execute permissions - not working
+    
+    ## Assigning permissions to files in .build folder
+    cd $DIR/$sa/.build
+    local files=($(ls -d *))
+    chmod +x "${files[@]}"
+
+    ## Assigning permissions to files in src folder
+    cd $DIR/$sa/src
+    local files=($(ls -d *))
+    chmod +x "${files[@]}"
 }
 
 ## Check if main file already exists
