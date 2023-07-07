@@ -11,7 +11,7 @@
 ## 5. clear unwanted lines and add more comments
 
 ## ========= Import files ============
-source generate_menu.sh
+source ./generate_menu.sh
 
 ## ===== Declare variables ===========
 currOpt=0
@@ -90,10 +90,12 @@ while [ ans != "" ]; do
         'q') 
                 clear ; echo "$enabled" ; exit ;;
         '[A') 
-                [ "$currOpt" -gt 0 ] && ((currOpt--)) ;;
+                [ "$currOpt" -gt 0 ] && ((currOpt--)) || currOpt=$optMax ;;
         '[B') 
                 [ "$currOpt" -lt 2 ] && ((currOpt++)) ;;
-        '')     
+        '[D')
+                [ "$highlight" -eq "$backButton" ] && (clear; echo "$enabled") && exit ;;
+        ''|'[C')     
                 toggleOption
                 updateOptions
                 ;;

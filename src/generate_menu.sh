@@ -5,7 +5,7 @@
 ## - optimise generateText option for shorter execution (PRIORITY)
 
 ## include xml file script
-source read_xml.sh
+source ./read_xml.sh
 
 ## Configuration
 symbol="*"
@@ -27,12 +27,19 @@ options=("${@:4}")      ## array of options to display in the menu
 ## checkWidth( options(array) )
 function checkWidth() {
     local size=0
+    local i=0
     ## get length of $options array
     local len=${#options[@]}
-    for (( i=0; i<$len; i++ )); do 
+ #   for (( i=0; i<$len; i++ )); do 
+ #       local item=${options[i]}
+ #       ## compare current value to last
+ #       [ ${#item} -gt size ] && size=${#item}
+ #   done
+    while [ $i -le $len ]; do
         local item=${options[i]}
         ## compare current value to last
-        [[ ${#item} -gt size ]] && size=${#item}
+        [ ${#item} -gt size ] && size=${#item}
+        ((i++))
     done
     echo $size
 }
@@ -76,16 +83,20 @@ function footer() {
 ## generatePadding( amount )
 function generatePadding() {
     local string=""
-    for (( i=0; i < $1; i++ )); do
+    local i=1
+    while [ $i -le $1 ]; do
         string+="$padding_symbol";
+        ((i++))
     done
     printf "$string"
 }
 
 function generateBorder() {
     local string=""
-    for (( i=0; i < line_size; i++ )); do
-      string+="$symbol";
+    local i=1
+    while [ $i -le $line_size ]; do
+        string+="$symbol";
+        ((i++))
     done
     ## echo the result
     echo -e "$string"

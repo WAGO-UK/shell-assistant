@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## Import files
-source read_xml.sh
-source initialise_menu.sh
+source ./read_xml.sh
+source ./initialise_menu.sh
 
 ## Declare variables
 declare lastMenuID
@@ -30,7 +30,7 @@ function readFileAndHighlightNew() {
 
 function updateCurrentMenu() {
     local txtFilePath="$TMPDIR/$1.txt"
-    local xmlFilePath="$DIR/$1.xml"
+    local xmlFilePath="$XMLDIR/$1.xml"
     if [ -f "$txtFilePath" ] && [ -f "$xmlFilePath" ] ; then
         lastMenuID="${menu[id]}"
         srcFile="$txtFilePath"
@@ -77,14 +77,16 @@ function updateMenu() {
                     updateCurrentMenu "${selectedOptAttribs[id]}" || echo "cannot update the menu."
                     ;;
         "endpoint")
+                    cd $BUILDDIR
                     eval "${selectedOptAttribs[command]}"
+                    cd $SRCDIR
                     sleep 1
                     ;;
         "device")
-                    selectedPLC="${options[$currOpt]}"
-                    echo "Device selected: $selectedPLC"
+                    echo "Device selected: ${options[$currOpt]}"
+                    selectedPLC=$( echo "${options[$currOpt]}" | tr '[:upper:]' '[:lower:]' )
                     sleep 1
-                    DIR="$DIR/$selectedPLC"
+                    XMLDIR="$XMLDIR/$selectedPLC"
                     readAllXMLFilesInDir || exit
                     updateCurrentMenu "${selectedOptAttribs[id]}" || echo "cannot update the menu."
                     ;;
@@ -104,7 +106,7 @@ function updateMenu() {
 
 ## ========= Initialize ============
 ## Temporary folder directory & generation of xml files
-TMPDIR=$(mktemp -d) || exit 
+TMPDIR=$(mktemp -d) || exit
 trap 'rm -rf -- "$TMPDIR"' EXIT
 
 ## Read first set of XML files (device)
@@ -132,7 +134,7 @@ while [ ans != "" ]; do
         ''|'[C') # Enter or RIGHT arrow key    
                 updateMenu
                 currOpt=0 ;;
-        *)      return ;;
+        *)      continue ;;
     esac
 }
 done

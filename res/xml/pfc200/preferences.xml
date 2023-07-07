@@ -1,8 +1,0 @@
-<id>preferences</id>
-<parent>wsa</parent>
-<title>Menu Preferences</title>
-<menu>
-    <option type='endpoint' command=''>Highlight Colour</option>
-    <option type='endpoint' command=''>Border Symbol</option>
-    <option type='endpoint' command=''>Retain Settings</option>
-</menu>
